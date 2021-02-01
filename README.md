@@ -1,13 +1,13 @@
 # ICText Eval
 
-This repo contains the code to evaluate task 1 and task 2 in ICText challenge.
+This repo contains the code to evaluate [Task 1 and 2](https://eval.ai/web/challenges/challenge-page/756) in ICText challenge.
 
 Setup this repo by:
 ```sh
 $ pip install -r requirements.txt
 $ python setup.py install
 ```
-You can run the test case using test.py and the main eval code is at ictext_eval.py.
+The main evaluation code is at ictext_eval.py.
 
 The core eval algo is taken from pycocotools. The 'ignore' flag and 'iscrowd' bug is fixed based on this [pull request](https://github.com/cocodataset/cocoapi/pull/465).
 
