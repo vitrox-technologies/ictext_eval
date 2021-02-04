@@ -1,11 +1,11 @@
-__author__ = 'tsungyi'
+__author__ = 'chunchet'
 
 import numpy as np
 from sklearn.metrics import precision_recall_fscore_support
+from shapely.geometry import Polygon
 import datetime
 import time
 from collections import defaultdict
-import mask as maskUtils
 import copy
 
 class COCOeval:
@@ -109,7 +109,6 @@ class COCOeval:
         # set ignore flag
         for gt in gts:
             gt['ignore'] = gt['ignore'] if 'ignore' in gt else 0
-            gt['ignore'] = ('iscrowd' in gt and gt['iscrowd']) or gt['ignore']
             if p.iouType == 'keypoints':
                 gt['ignore'] = (gt['num_keypoints'] == 0) or gt['ignore']
         self._gts = defaultdict(list)       # gt for evaluation
@@ -188,8 +187,26 @@ class COCOeval:
             raise Exception('unknown iouType for iou computation')
 
         # compute iou between each dt and gt region
-        iscrowd = [int(o['iscrowd']) for o in gt]
-        ious = maskUtils.iou(d,g,iscrowd)
+        def to_polygon(bbox):
+            return Polygon([(bbox[2 * i], bbox[2 * i + 1]) for i in range(4)])
+
+        def get_intersection_over_union(poly1,poly2):
+            try:
+                area_inter = poly1.intersection(poly2).area
+                area_union = poly1.union(poly2).area
+                return area_inter / area_union
+            except ZeroDivisionError:
+                return 0
+
+        outputShape=[len(d),len(g)]
+        iouMat = np.empty(outputShape)
+        for gtNum, gt_bbox in enumerate(g):
+            gt_poly = to_polygon(gt_bbox)
+            for detNum, dt_bbox in enumerate(d):
+                det_poly = to_polygon(dt_bbox)
+                iouMat[gtNum,detNum] = get_intersection_over_union(det_poly,gt_poly)
+        ious = iouMat.reshape((len(d),len(g)), order='F')
+
         return ious
 
     def computeOks(self, imgId, catId):
@@ -261,7 +278,6 @@ class COCOeval:
         gt = [gt[i] for i in gtind]
         dtind = np.argsort([-d['score'] for d in dt], kind='mergesort')
         dt = [dt[i] for i in dtind[0:maxDet]]
-        iscrowd = [int(o['iscrowd']) for o in gt]
         # load computed ious
         ious = self.ious[imgId, catId][:, gtind] if len(self.ious[imgId, catId]) > 0 else self.ious[imgId, catId]
 
@@ -283,8 +299,8 @@ class COCOeval:
                     m   = -1
 
                     for gind, g in enumerate(gt):
-                        # if this gt already matched, and not a crowd, continue
-                        if gtm[tind,gind]>0 and not iscrowd[gind]:
+                        # if this gt already matched, continue
+                        if gtm[tind,gind]>0:
                             continue
                         # if dt matched to reg gt, and on ignore gt, stop
                         if m>-1 and gtIg[m]==0 and gtIg[gind]==1:
