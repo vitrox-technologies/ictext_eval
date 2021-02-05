@@ -204,7 +204,7 @@ class COCOeval:
             gt_poly = to_polygon(gt_bbox)
             for detNum, dt_bbox in enumerate(d):
                 det_poly = to_polygon(dt_bbox)
-                iouMat[gtNum,detNum] = get_intersection_over_union(det_poly,gt_poly)
+                iouMat[detNum,gtNum] = get_intersection_over_union(det_poly,gt_poly)
         ious = iouMat.reshape((len(d),len(g)), order='F')
 
         return ious
