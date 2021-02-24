@@ -25,9 +25,9 @@ They will be running in parallel through command chaining.
 # Folder Structure
 <pre>
 .
-├── <a href="data">data</a> <b>(Folder to store model related data here)<b>
+├── <a href="data">data</a> <b>(Folder to store model related data here)</b>
 │   └── <a href="data/.gitkeep">.gitkeep</a>
-├── <a href="evaluation">evaluation</a> <b>(Contains Evaluation code)<b>
+├── <a href="evaluation">evaluation</a> <b>(Contains Evaluation code)</b>
 │   ├── <a href="evaluation/Dockerfile">evaluation/Dockerfile</a>
 │   ├── <a href="evaluation/coco.py">evaluation/coco.py</a>
 │   ├── <a href="evaluation/cocoeval.py">evaluation/cocoeval.py</a>
@@ -35,19 +35,19 @@ They will be running in parallel through command chaining.
 │   ├── <a href="evaluation/ictext_eval.py">evaluation/ictext_eval.py</a>
 │   ├── <a href="evaluation/main.py">evaluation/main.py</a>
 │   └── <a href="evaluation/requirements.txt">evaluation/requirements.txt</a>
-├── <a href="output">output</a> <b>(Output of the model should be saved here as result.json)<b>
+├── <a href="output">output</a> <b>(Output of the model should be saved here as result.json)</b>
 │   ├── <a href="output/.gitkeep">output/.gitkeep</a>
 │   └── <a href="output/result.json">output/result.json</a>
-├── <a href="tensorflow">tensorflow</a> <b>(Sample folder to store code)<b>
+├── <a href="tensorflow">tensorflow</a> <b>(Sample folder to store code)</b>
 │   ├── <a href="tensorflow/Dockerfile">tensorflow/Dockerfile</a>
 │   └── <a href="tensorflow/main.py">tensorflow/main.py</a>
-├── <a href="timer">timer</a> <b>(Contains code to get FPS and used GPU memory size for task 3 evaluation)<b>
+├── <a href="timer">timer</a> <b>(Contains code to get FPS and used GPU memory size for task 3 evaluation)</b>
 │   ├── <a href="timer/Dockerfile">timer/Dockerfile</a>
 │   └── <a href="timer/main.py">timer/main.py</a>
-├── <a href="torch">torch</a> <b>(Sample folder to store code)<b>
+├── <a href="torch">torch</a> <b>(Sample folder to store code)</b>
 │   ├── <a href="torch/Dockerfile">torch/Dockerfile</a>
 │   └── <a href="torch/main.py">torch/main.py</a>
-├── <a href="utilization">utilization</a> <b>(Contains log file to keep track of GPU usage every seconds)<b>
+├── <a href="utilization">utilization</a> <b>(Contains log file to keep track of GPU usage every seconds)</b>
 │   └── <a href="utilization/log.csv">utilization/log.csv</a>
 ├── <a href="README.md">README.md</a>
 ├── <a href="run_task1_2.sh">run_task1_2.sh</a>
