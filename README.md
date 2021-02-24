@@ -23,6 +23,7 @@ The flow of evaluation for Task 3 is as follows:
 They will be running in parallel through command chaining.
 
 # Folder Structure
+```bash
 .
 ├── [data/](data)                                        # Folder to store model related data here
 │   └── [.gitkeep](data/.gitkeep)
@@ -51,6 +52,7 @@ They will be running in parallel through command chaining.
 ├── [readme.md](readme.md)
 ├── [run_task1_2.sh](run_task1_2.sh)
 └── [run_task3.sh](run_task3.sh)
+```
 
 # Main changes
 You can find the main evaluation code at evaluation/ictext_eval.py. The evaluation algorithm is taken from pycocotools with a few changes:
