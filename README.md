@@ -4,6 +4,11 @@ ICText Local Test Kit
 # Introduction
 This repo contains the evalaution code for [Task 1 and 2](https://eval.ai/web/challenges/challenge-page/756) and [Task 3](https://eval.ai/web/challenges/challenge-page/757) in ICText challenge.
 
+# Important Notice
+1. The image path and id will be provided through this path <a href="data/images.json"><b>data/images.json</b></a>. Your docker image (either in <a href="tensorflow/"><b>TensorFlow</b></a> or <a href="torch/"><b>PyTorch</b></a>) MUST use it to read the images for inference.
+2. Then, you MUST output the results to this path <a href="output/result.json"><b>output/result.json</b></a>. So that the result JSON will be loaded by the <a href="evaluation/"><b>evaluation docker</b></a> to evaluate against <a href="evaluation/gt.json"><b>evaluation/gt.json</b></a> for final score.
+3. All the mentioned JSON files are just examples for you to understand how the overall evaluation pipeline works. Please remember to follow the correct output result JSON format so that the it will be evaluated successfully.
+
 # Running
 Setup and run this repo for Task 1 and 2 by:
 ```sh
