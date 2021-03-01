@@ -331,15 +331,21 @@ class COCOeval:
                 g_aes = gt[idx]['aesthetic']
 
                 # check if gt aesthetic is empty
-                g_sum = sum(g_aes)
-                if g_sum > 0 and not gt[idx]['ignore']:
-                    self.full_g_aes.append(g_aes)
+                if not gt[idx]['ignore']:
                     # check if det aesthetic exists
                     if det_id in det_aes_dic.keys():
                         d_aes = det_aes_dic[det_id]
-                        self.full_d_aes.append(d_aes)
                     else:
-                        self.full_d_aes.append([0,0,0])
+                        d_aes = [0,0,0]
+                    
+                    g_d_sum = np.add(g_aes, d_aes)
+                    for idx, total in enumerate(g_d_sum):
+                        if total == 0:
+                            d_aes[idx] = 1
+                            g_aes[idx] = 1
+
+                    self.full_d_aes.append(d_aes)
+                    self.full_g_aes.append(g_aes)
         return {
                 'image_id':     imgId,
                 'category_id':  catId,
