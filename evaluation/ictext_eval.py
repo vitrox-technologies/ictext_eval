@@ -37,7 +37,13 @@ def evaluate(test_annotation_file, user_submission_file, aesthetic, fps = None, 
 
 
     if fps != None and mem != None:
-        output["3S"] = calculate_final(score, fps, mem)
+        if not aesthetic and score >= 0.5:
+            output["3S"] = calculate_final(score, fps, mem)
+        elif aesthetic and score >= 0.6:
+            output["3S"] = calculate_final(score, fps, mem)
+        else:
+            print("Score is too low for consideration. Minimum score for mAP is 0.5 and multi-label f2-score is 0.6.")
+            output["3S"] = 0
     print("\n----------Completed Evaluation----------\n")
 
     return output
