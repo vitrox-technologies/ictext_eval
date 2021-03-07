@@ -30,7 +30,7 @@ They will be running in parallel through command chaining.
 # Folder Structure
 <pre>
 .
-├── <a href="data">data</a> <b>(Folder to store model related data here)</b>
+├── <a href="data">data</a> <b>(Folder to store images)</b>
 │   └── <a href="data/.gitkeep">.gitkeep</a>
 ├── <a href="evaluation">evaluation</a> <b>(Contains Evaluation code)</b>
 │   ├── <a href="evaluation/Dockerfile">evaluation/Dockerfile</a>
@@ -64,7 +64,8 @@ You can find the main evaluation code at evaluation/ictext_eval.py. The evaluati
 1. Polygon coordinates [x1,1,...,x4,y4] will be used to replace bbox [x,y,w,h] for evalution.
 2. Reject submission with empty aesthetic labels, length of aesthetic labels != 3 and not one hot encoded. Please find the relevant code under the function 'loadRes' in coco.py.
 3. Multi-label score will be calculated based on the matching criteria of IoU>0.5, all area regions and matched based on ground truth to prediction. Please find the relevant code under the function 'evaluateImg' in cocoeval.py.
-4. Ground truth with aesthetic labels of [0,0,0] will be skipped and a default value of [0,0,0] will be given if there is no detection for the ground truth. Please find the relevant code under the function 'evaluateImg' in cocoeval.py.
-5. We will use F-2 score instead of F-1 score as we want to prioritize recall more than precision. Please find the relevant code under the function 'accumulate' in cocoeval.py. The score of 0 will be given for zero division cases, else if any or all of the elements of groundtruth and prediction are zero, then we will reward ii by flipping that element's value to 1.
+4. All legible ground truth instances will be considered, and a default value of [0,0,0] will be given if there is no detection for the ground truth. Please find the relevant code under the function 'evaluateImg' in cocoeval.py.
+5. We will use F-2 score instead of F-1 score as we want to prioritize recall more than precision. Please find the relevant code under the function 'accumulate' in cocoeval.py. The score of 0 will be given for zero division cases. Only if all the elements of ground truth and prediction are zero, then we will flip them to 1.
 6. We set the default FPS to 30 and default GPU memory to 4000MB. For the calculation of 3S score, refer to the following formula:
 3S = 0.2 x normalised speed + 0.2 x (1-normalised size) + 0.6 x normalised score
+7. We will only consider the 3S score when mAP (Task 3.1), mAP and F-Score (Task 3.2) are more than or equal to 0.5. This is the lower bound performance that we set for our dataset.

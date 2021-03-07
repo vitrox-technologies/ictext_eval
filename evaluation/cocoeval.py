@@ -337,15 +337,14 @@ class COCOeval:
                         d_aes = det_aes_dic[det_id]
                     else:
                         d_aes = [0,0,0]
-                    
-                    g_d_sum = np.add(g_aes, d_aes)
-                    for idx, total in enumerate(g_d_sum):
-                        if total == 0:
-                            d_aes[idx] = 1
-                            g_aes[idx] = 1
 
-                    self.full_d_aes.append(d_aes)
-                    self.full_g_aes.append(g_aes)
+                    g_d_sum = sum(np.add(g_aes, d_aes))
+                    if g_d_sum == 0:
+                        self.full_d_aes.append([1, 1, 1])
+                        self.full_g_aes.append([1, 1, 1])
+                    else:
+                        self.full_d_aes.append(d_aes)
+                        self.full_g_aes.append(g_aes)
         return {
                 'image_id':     imgId,
                 'category_id':  catId,
