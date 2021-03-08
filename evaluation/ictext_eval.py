@@ -35,6 +35,8 @@ def evaluate(test_annotation_file, user_submission_file, aesthetic, fps = None, 
         score = stats[14]
 
     if fps is not None and mem is not None:
+        output["FPS"] = fps
+        output["GPU Memory (MB)"] = mem
         if not aesthetic and score >= 0.5:
             output["3S"] = calculate_final(score, fps, mem)
         elif aesthetic and score >= 0.5 and stats[0] >= 0.5:
