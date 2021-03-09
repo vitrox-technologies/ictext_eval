@@ -517,7 +517,7 @@ class COCOeval:
                 mean_s = np.mean(s[s>-1])
 
             if ap == 2:
-                m_scores = [self.eval['f_beta'], self.eval['m_precision'], self.eval['m_recall']]
+                m_scores = [self.eval['m_precision'], self.eval['m_recall'], self.eval['f_beta']]
                 titles = ['Multi-label Precision', 'Multi-label Recall', 'Multi-label F-{} Score'.format(p.beta)]
                 titles = [x + (' ' * (len(max(titles, key=len)) - len(x))) for x in titles]
                 types = ['(ML_P)', '(ML_R)', '(ML_F{})'.format(p.beta)]
